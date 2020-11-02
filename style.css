@@ -2,38 +2,28 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
-    background-color: wheat;
-    
+    background-color: rgb(89, 78, 91);
+    color: whitesmoke;
 }
 
-.container {
-    width: 900px;
-    height: 600px;
-    background-color: black;
-    margin: 0 auto;
+button {
+    padding: 15px 32px;
+    margin: 4px 2px;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 20px;
+    border: none;
 }
-.play-area {
-    display: flex;
-    justify-content: space-between;
-    height: 600px;background-color: darkslategray;
-}
-
-.player1 {
-    background-color: white;
-    width: 20px;
-    height: 100px;
-    margin-left: 10px;
+.play {
+    background-color: lightgreen;
+    color: darkgreen;
 }
 
-.player2 {
-    background-color: white;
-    width: 20px;
-    height: 100px;
-    margin-right: 10px;
+.restart {
+    background-color: lightblue;
 }
 
-.divider {
-    width: 1px;
-    height: ;
-    background-color: white;
+canvas {
+    background-color: lightsteelblue;
 }
