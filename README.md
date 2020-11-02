@@ -1,2 +1,2 @@
 # Ping-Pong
-Ping pong game
+Ping pong SEI1019 Project 1
