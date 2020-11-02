@@ -1,0 +1,19 @@
+body {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: wheat;
+}
+
+.container {
+    width: 900px;
+    height: 600px;
+    background-color: black;
+    display: ;
+}
+
+.player1 {
+    background-color: white;
+    width: 20px;
+    height: 100px;
+}
