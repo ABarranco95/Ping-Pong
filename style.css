@@ -3,17 +3,37 @@ body {
     margin: 0;
     padding: 0;
     background-color: wheat;
+    
 }
 
 .container {
     width: 900px;
     height: 600px;
     background-color: black;
-    display: ;
+    margin: 0 auto;
+}
+.play-area {
+    display: flex;
+    justify-content: space-between;
+    height: 600px;background-color: darkslategray;
 }
 
 .player1 {
     background-color: white;
     width: 20px;
     height: 100px;
+    margin-left: 10px;
+}
+
+.player2 {
+    background-color: white;
+    width: 20px;
+    height: 100px;
+    margin-right: 10px;
+}
+
+.divider {
+    width: 1px;
+    height: ;
+    background-color: white;
 }
