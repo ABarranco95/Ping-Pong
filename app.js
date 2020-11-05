@@ -1,30 +1,54 @@
-let game = document.querySelector('#pong')
+const canvas = document.querySelector('#pong');
+const context = canvas.getContext('2d');
 
-const ctx = game.getContext('2d')
+context.fillStyle = '#000';
+context.fillRect(0, 0, canvas.width, canvas.height);
 
-class Paddle {
-    constructor(x) {
-        this.x = x;
-        this.y = height / 2;
-        this.height = 80;
-        this.width = 10;
-    }
-    createPaddle() {
-        fill(255);
-        rect(this.x, this.y, this.height, this.width)
-    }
+context.fillStyle = '#fff';
+context.beginPath();
+context.arc(300, 350, 100, 0, Math.PI*2, false);
+
+context.closePath();
+
+// Functions that will draw the ball and paddles on board
+
+function createCircle(x, y, r, color) {
+    context.fillStyle = color;
+    context.beginPath();
+    context.arc(x, y, r, 0, Math.PI*2, false);
+    context.closePath();
+    context.fillStyle();
 }
 
-const userPaddle = '';
+function createPaddle(x, y, w, h, color) {
+    context.fillStyle = color;
+    context.fillRect = (x, y, w, h);
+}
+// User and AI Paddles
 
-function setup() {
-    userPaddle = new Paddle(20);
-  }
-   
-  function draw() {
-    background(0);
-    userPaddle.createPaddle();
-  }
+const userPaddle = {
+    x : 0,
+    y: canvas.height/2 - 50/2,
+    width : 10,
+    height : 50,
+    color : 'white',
+}
+
+const aiPaddle = {
+    x : canvas.width - 10,
+    y : canvas.height/2 - 50/2,
+    width : 10,
+    height : 50,
+    color : 'white'
+}
 
 
-  console.log(userPaddle)
+// add movement for paddles
+
+document.addEventListener('keydown', function(evt){
+    if (evt.key === 'w') {
+        y -= 10
+    } else if (evt.key === 's') {
+        y += 10
+    }
+})

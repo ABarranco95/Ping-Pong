@@ -2,12 +2,12 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
-    background-color: rgb(89, 78, 91);
-    color: whitesmoke;
+    background-color: whitesmoke;
+    
 }
 
 button {
-    padding: 15px 32px;
+    padding: 15px;
     margin: 4px 2px;
     color: white;
     text-decoration: none;
@@ -17,13 +17,8 @@ button {
 }
 .play {
     background-color: lightgreen;
-    color: darkgreen;
 }
 
 .restart {
     background-color: lightblue;
-}
-
-canvas {
-    background-color: lightsteelblue;
 }
