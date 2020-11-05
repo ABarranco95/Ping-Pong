@@ -16,9 +16,9 @@ button {
     border: none;
 }
 .play {
-    background-color: lightgreen;
+    background-color: limegreen;
 }
 
 .restart {
-    background-color: lightblue;
+    background-color: red;
 }
