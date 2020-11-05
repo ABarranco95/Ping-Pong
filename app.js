@@ -91,6 +91,22 @@ document.addEventListener('keydown', function(evt){
 
 })
 
+// Collision Detection
+
+function collision(ball, paddle) {
+    paddlele.top = paddle.y;
+    paddle.bottom = paddle.y + paddle.height;
+    paddle.left = paddle.x;
+    paddle.right = paddle.x + paddle.width;
+
+    ball.top = ball.y - ball.radius;
+    ball.bottom = ball.y + ball.radius;
+    ball.lefy = ball.x - ball.radius;
+    ball.right = ball.x + ball.radius;
+
+    return ball.right > paddle.left && ball.top < paddle.bottom && ball.left < paddle.right && ball.bottom > paddle.top;
+}
+
 
 // Run the game on board
 
