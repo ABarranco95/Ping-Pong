@@ -22,11 +22,23 @@ function createCircle(x, y, r, color) {
     context.fill();
 }
 
-const ball = {
+const pingPongBall = {
     x: game.width/2,
     y: game.height/2,
     radius: 10,
-    color: 'white'
+    speed: 5,
+    velocityX: 5,
+    velocityY: 5,
+    color: 'white',
+}
+
+function update() {
+    pingPongBall.x += pingPongBall.velocityX;
+    pingPongBall.y += pingPongBall.velocityY;
+
+    if(pingPongBall.y + pingPongBall.radius > game.height || pingPongBall.y - pingPongBall.radius < 0) {
+        pingPongBall.velocityY = - pingPongBall.velocityY;
+    }
 }
 
 
@@ -61,7 +73,7 @@ const aiPaddle = {
 const divider = {
     x: game.width/2 - 2/2,
     y: 0,
-    width: 2,
+    width: 0.09,
     height: game.height,
     color: 'white',
 }
@@ -80,6 +92,8 @@ document.addEventListener('keydown', function(evt){
 })
 
 
+// Run the game on board
+
 function render() {
     createPaddle(divider.x, divider.y, divider.width, divider.height, divider.color)
     
@@ -87,11 +101,17 @@ function render() {
     
     createPaddle(aiPaddle.x, aiPaddle.y, aiPaddle.width, aiPaddle.height, aiPaddle.color)
 
-    createCircle(ball.x, ball.y, ball.radius, ball.color)
+    createCircle(pingPongBall.x, pingPongBall.y, pingPongBall.radius, pingPongBall.color)
 }
 
+
+
 function pingPong() {
+    update();
     render();
 }
+
+
+// 60 frames per second
 
 setInterval(pingPong, 1000/60) 
