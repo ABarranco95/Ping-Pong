@@ -32,14 +32,6 @@ const pingPongBall = {
     color: 'white',
 }
 
-function update() {
-    pingPongBall.x += pingPongBall.velocityX;
-    pingPongBall.y += pingPongBall.velocityY;
-
-    if(pingPongBall.y + pingPongBall.radius > game.height || pingPongBall.y - pingPongBall.radius < 0) {
-        pingPongBall.velocityY = - pingPongBall.velocityY;
-    }
-}
 
 
 function createPaddle(x, y, w, h, color) {
@@ -82,29 +74,29 @@ const divider = {
 
 // add movement for paddles
 
-document.addEventListener('keydown', function(evt){
-    if (evt.key === 'w') {
-       userPaddle.y -= 10
-    } else if (evt.key === 's') {
-        userPaddle.y += 10
-    }
-
-})
+// document.addEventListener('keydown', function(evt){
+//     if (evt.key === 'w') {
+//         userPaddle.y -= 10
+//     } else if (evt.key === 's') {
+//         userPaddle.y += 10
+//     }
+    
+// })
 
 // Collision Detection
 
-function collision(ball, paddle) {
-    paddlele.top = paddle.y;
-    paddle.bottom = paddle.y + paddle.height;
-    paddle.left = paddle.x;
-    paddle.right = paddle.x + paddle.width;
-
+function collision(ball, player) {
+    paddlele.top = player.y;
+    player.bottom = player.y + player.height;
+    player.left = player.x;
+    player.right = player.x + player.width;
+    
     ball.top = ball.y - ball.radius;
     ball.bottom = ball.y + ball.radius;
     ball.lefy = ball.x - ball.radius;
     ball.right = ball.x + ball.radius;
-
-    return ball.right > paddle.left && ball.top < paddle.bottom && ball.left < paddle.right && ball.bottom > paddle.top;
+    
+    return ball.right > player.left && ball.bottom > player.top && ball.left < player.right && ball.top < player.bottom;
 }
 
 
@@ -116,11 +108,31 @@ function render() {
     createPaddle(userPaddle.x, userPaddle.y, userPaddle.width, userPaddle.height, userPaddle.color)
     
     createPaddle(aiPaddle.x, aiPaddle.y, aiPaddle.width, aiPaddle.height, aiPaddle.color)
-
+    
     createCircle(pingPongBall.x, pingPongBall.y, pingPongBall.radius, pingPongBall.color)
 }
 
 
+function update() {
+    pingPongBall.x += pingPongBall.velocityX;
+    pingPongBall.y += pingPongBall.velocityY;
+
+    // AI 
+
+    let aiComputer = 0.5
+
+    aiPaddle.y += (pingPongBall.y - (aiPaddle.y + aiPaddle.height/2)) * aiComputer;
+
+    if(pingPongBall.y + pingPongBall.radius > game.height || pingPongBall.y - pingPongBall.radius < 0) {
+        pingPongBall.velocityY = - pingPongBall.velocityY;
+    }
+
+    let player = (pingPongBall.x < game.width/2) ? user: Comment;
+
+    // if(collision(ball, player)) {
+
+    // }
+}
 
 function pingPong() {
     update();
