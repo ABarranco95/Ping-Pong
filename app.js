@@ -129,7 +129,8 @@ function resetBall() {
     pingPongBall.x = game.width/2;
     pingPongBall.y = game.height/2;
 
-    pingPongBall.speed = 1;
+    pingPongBall.speed = 5;
+    pingPongBall.velocityX = -pingPongBall.velocityX
 }
 
 
@@ -162,7 +163,7 @@ function update() {
         pingPongBall.velocityX = direction * pingPongBall.speed * Math.cos(angle);
         pingPongBall.velocityY = pingPongBall.speed * Math.sin(angle);
 
-        pingPongBall.speed += 1;
+        pingPongBall.speed += 0.5;
     }
 
     if(pingPongBall.x - pingPongBall.radius < 0) {
@@ -172,14 +173,29 @@ function update() {
         userPaddle.score++;
         resetBall();
     }
+
+
+    // Game winner/ End of game
+
+    if(userPaddle.score === 1) {
+        context.fillStyle = '#fff';
+        context.fillText('Winner, Winner, Chicken Dinner!', game.width/2, 200)
+        clearInterval(gameLoop);
+        return
+    } else if (aiPaddle.score === 1) {
+        context.fillStyle = '#fff';
+        context.fillText('No Chicken Dinner For You....', game.width/2, 200);
+        clearInterval(gameLoop);
+        return
+    }
 }
 
 function pingPong() {
-    update();
-    render();
 }
 
 
 // 60 frames per second
-
-setInterval(pingPong, 1000/60) 
+const gameLoop = setInterval(function() {
+    update();
+    render();
+}, 1000/60);
