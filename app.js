@@ -1,7 +1,7 @@
 const game = document.querySelector('#pong');
 const context = game.getContext('2d');
 
-const ball = {
+const pingPongBall = {
     x: game.width/2,
     y: game.height/2,
     radius: 10,
@@ -21,7 +21,7 @@ function gameScore(score, x, y, color) {
 
 
 
-// Functions that will draw the ball, background, and paddles on board 
+// Functions that will draw the pingPongBall, background, and paddles on board 
 
 function createBackground(x, y, w, h, color) {
     context.fillStyle = color;
@@ -44,19 +44,21 @@ function createPaddle(x, y, w, h, color) {
 // User and AI Paddles
 
 const userPaddle = {
-    x : 5,
+    x: 5,
     y: game.height/2 - 100/2,
-    width : 10,
-    height : 100,
-    color : 'white',
+    width: 10,
+    height: 100,
+    color: 'white',
+    score: 0,
 }
 
 const aiPaddle = {
-    x : game.width - 15,
-    y : game.height/2 - 100/2,
-    width : 10,
-    height : 100,
-    color : 'white'
+    x: game.width - 15,
+    y: game.height/2 - 100/2,
+    width: 10,
+    height: 100,
+    color: 'white',
+    score: 0,
 }
 
 
@@ -86,11 +88,11 @@ game.addEventListener('mousemove', movePaddle);
 
 //Collision Detection
 
-function collision(ball, player) {
-    ball.top = ball.y - ball.radius;
-    ball.bottom = ball.y + ball.radius;
-    ball.left = ball.x - ball.radius;
-    ball.right = ball.x + ball.radius;
+function collision(pingPongBall, player) {
+    pingPongBall.top = pingPongBall.y - pingPongBall.radius;
+    pingPongBall.bottom = pingPongBall.y + pingPongBall.radius;
+    pingPongBall.left = pingPongBall.x - pingPongBall.radius;
+    pingPongBall.right = pingPongBall.x + pingPongBall.radius;
 
     player.top = player.y;
     player.bottom = player.y + player.height;
@@ -98,7 +100,7 @@ function collision(ball, player) {
     player.right = player.x + player.width;
     
     
-    return ball.right > player.left && ball.bottom > player.top && ball.left < player.right && ball.top < player.bottom;
+    return pingPongBall.right > player.left && pingPongBall.bottom > player.top && pingPongBall.left < player.right && pingPongBall.top < player.bottom;
 }
 
 
@@ -113,55 +115,63 @@ function render() {
     
     createPaddle(aiPaddle.x, aiPaddle.y, aiPaddle.width, aiPaddle.height, aiPaddle.color)
     
-    createCircle(ball.x, ball.y, ball.radius, ball.color)
+    createCircle(pingPongBall.x, pingPongBall.y, pingPongBall.radius, pingPongBall.color)
 
-    gameScore('Play Now!', 300, 300, 'white');
+    gameScore(userPaddle.score, game.width/4, game.height/5, '#fff')
+
+    gameScore(aiPaddle.score, game.width/1.35, game.height/5, '#fff')
 }
 
 
-// function to reset ball after player/ai scores.
+// function to reset pingPongBall after player/ai scores.
 
 function resetBall() {
-    ball.x = game.width/2;
-    ball.y = game.height/2;
+    pingPongBall.x = game.width/2;
+    pingPongBall.y = game.height/2;
 
-    ball.speed = 4;
+    pingPongBall.speed = 1;
 }
 
 
 function update() {
-    ball.x += ball.velocityX;
-    ball.y += ball.velocityY;
+    pingPongBall.x += pingPongBall.velocityX;
+    pingPongBall.y += pingPongBall.velocityY;
 
     // AI 
 
     let aiComputerLevel = 0.5;
 
-    aiPaddle.y += (ball.y - (aiPaddle.y + aiPaddle.height/2)) * aiComputerLevel;
+    aiPaddle.y += (pingPongBall.y - (aiPaddle.y + aiPaddle.height/2)) * aiComputerLevel;
 
-    if(ball.y + ball.radius > game.height || ball.y - ball.radius < 0) {
-        ball.velocityY = - ball.velocityY;
+    if(pingPongBall.y + pingPongBall.radius > game.height || pingPongBall.y - pingPongBall.radius < 0) {
+        pingPongBall.velocityY = - pingPongBall.velocityY;
     }
 
-    let player = (ball.x < game.width/2) ? userPaddle: aiPaddle;
+    let player = (pingPongBall.x < game.width/2) ? userPaddle: aiPaddle;
 
-    if(collision(ball, player)) {
+    if(collision(pingPongBall, player)) {
         
-        let collidePoint = ball.y - (player.y + player.height/2);
+        let collidePoint = pingPongBall.y - (player.y + player.height/2);
 
         collidePoint = collidePoint/(player.height/2);
 
         let angle = collidePoint * Math.PI/4;
 
-        let direction = (ball.x < game.width/2) ? 1 : -1;
+        let direction = (pingPongBall.x < game.width/2) ? 1 : -1;
 
-        ball.velocityX = direction * ball.speed * Math.cos(angle);
-        ball.velocityY = ball.speed * Math.sin(angle);
+        pingPongBall.velocityX = direction * pingPongBall.speed * Math.cos(angle);
+        pingPongBall.velocityY = pingPongBall.speed * Math.sin(angle);
 
-        ball.speed += 1;
-
+        pingPongBall.speed += 1;
     }
 
+    if(pingPongBall.x - pingPongBall.radius < 0) {
+        aiPaddle.score++;
+        resetBall();
+    } else if (pingPongBall.x + pingPongBall.radius > game.width) {
+        userPaddle.score++;
+        resetBall();
+    }
 }
 
 function pingPong() {
