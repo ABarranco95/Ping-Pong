@@ -1,19 +1,19 @@
 # Requirements
-- [ ] Name	
-- [ ] Game Name	
-- [ ] Github Link
-- [ ] Live Site	
+- [x] Name	
+- [x] Game Name	
+- [x] Github Link
+- [x] Live Site	
 - [ ] Regrade	
-- [ ] Status	
-- [ ] Game is playable	
-- [ ] Game is multiplayer 
+- [x] Status	
+- [x] Game is playable	
+- [x] Game is multiplayer 
 (or AI or PVE)
-- [ ] Game is winnable	
+- [x] Game is winnable	
 - [ ] Winner/score is displayed (NO ALERTS)	
 - Has directions - how to play	
 - [ ] Readme.md included and filled out	
-- [ ] Appropriate Use of GitHub (`commits`) 	- [ ] Deployed on Github Pages	
+- [x] Appropriate Use of GitHub (`commits`) 	- [ ] Deployed on Github Pages	
 - DRY (Do Not Repeat Yourself) Code, Good Code Style	
-- [ ] Effort Put into Styling	
+- [x] Effort Put into Styling	
 - [ ] Reset button	
-- [ ] Good collision detection/event triggers
+- [x] Good collision detection/event triggers
