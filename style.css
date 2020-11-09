@@ -2,8 +2,8 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
-    background-color: whitesmoke;
-    
+    background-color: #3462F9;
+    color: whitesmoke;
 }
 
 button {
@@ -16,9 +16,26 @@ button {
     border: none;
 }
 .play {
-    background-color: limegreen;
+    background-color: #4CAF50;
+    width: 150px;
+    height: 60px;
+    color: white;
 }
 
 .restart {
     background-color: red;
+    width: 150px;
+    height: 60px;
+}
+
+
+h1 {
+    margin: 50px;
+    font-size: 60px;
+    font-family: 'Big Shoulders Stencil Text', cursive;
+}
+
+p {
+    font-family: 'Amatic SC', cursive;
+    font-size: 24px;
 }
