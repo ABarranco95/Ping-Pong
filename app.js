@@ -1,28 +1,7 @@
 const game = document.querySelector('#pong');
 const context = game.getContext('2d');
 
-context.fillStyle = '#000';
-context.fillRect(0, 0, game.width, game.height);
-
-context.fillStyle = 'black;'
-
-// context.fillStyle = '#fff';
-// context.beginPath();
-// context.arc(300, 350, 10, 0, Math.PI*2, false);
-// context.closePath();
-// context.fill();
-
-// Functions that will draw the ball and paddles on board
-
-function createCircle(x, y, r, color) {
-    context.fillStyle = color;
-    context.beginPath();
-    context.arc(x, y, r, 0, Math.PI*2, false);
-    context.closePath();
-    context.fill();
-}
-
-const pingPongBall = {
+const ball = {
     x: game.width/2,
     y: game.height/2,
     radius: 10,
@@ -32,13 +11,25 @@ const pingPongBall = {
     color: 'white',
 }
 
+// Functions that will draw the ball and paddles on board
 
+function createBackground(x, y, w, h, color) {
+    context.fillStyle = color;
+    context.fillRect(x, y, w, h)
+}
+
+function createCircle(x, y, r, color) {
+    context.fillStyle = color;
+    context.beginPath();
+    context.arc(x, y, r, 0, Math.PI*2, false);
+    context.closePath();
+    context.fill();
+}
 
 function createPaddle(x, y, w, h, color) {
     context.fillStyle = color;
     context.fillRect(x, y, w, h);
 }
-
 
 // User and AI Paddles
 
@@ -63,7 +54,7 @@ const aiPaddle = {
 // Add the divider
 
 const divider = {
-    x: game.width/2 - 2/2,
+    x: game.width/2 - 1,
     y: 0,
     width: 0.09,
     height: game.height,
@@ -72,28 +63,28 @@ const divider = {
 
 
 
-// add movement for paddles
+// add movement for user paddle
 
-// document.addEventListener('keydown', function(evt){
-//     if (evt.key === 'w') {
-//         userPaddle.y -= 10
-//     } else if (evt.key === 's') {
-//         userPaddle.y += 10
-//     }
-    
-// })
+game.addEventListener('mousemove', movePaddle);
+  
+    function movePaddle(evt) {
+        let rect = game.getBoundingClientRect();
 
-// Collision Detection
+        userPaddle.y = evt.clientY - rect.top - userPaddle.height/2;
+    }
+
+
+//Collision Detection
 
 function collision(ball, player) {
-    paddlele.top = player.y;
+    player.top = player.y;
     player.bottom = player.y + player.height;
     player.left = player.x;
     player.right = player.x + player.width;
     
     ball.top = ball.y - ball.radius;
     ball.bottom = ball.y + ball.radius;
-    ball.lefy = ball.x - ball.radius;
+    ball.left = ball.x - ball.radius;
     ball.right = ball.x + ball.radius;
     
     return ball.right > player.left && ball.bottom > player.top && ball.left < player.right && ball.top < player.bottom;
@@ -103,35 +94,37 @@ function collision(ball, player) {
 // Run the game on board
 
 function render() {
+    createBackground(0, 0, game.width, game.height, '#000');
+
     createPaddle(divider.x, divider.y, divider.width, divider.height, divider.color)
     
     createPaddle(userPaddle.x, userPaddle.y, userPaddle.width, userPaddle.height, userPaddle.color)
     
     createPaddle(aiPaddle.x, aiPaddle.y, aiPaddle.width, aiPaddle.height, aiPaddle.color)
     
-    createCircle(pingPongBall.x, pingPongBall.y, pingPongBall.radius, pingPongBall.color)
+    createCircle(ball.x, ball.y, ball.radius, ball.color)
 }
 
 
 function update() {
-    pingPongBall.x += pingPongBall.velocityX;
-    pingPongBall.y += pingPongBall.velocityY;
+    ball.x += ball.velocityX;
+    ball.y += ball.velocityY;
 
     // AI 
 
     let aiComputer = 0.5
 
-    aiPaddle.y += (pingPongBall.y - (aiPaddle.y + aiPaddle.height/2)) * aiComputer;
+    aiPaddle.y += (ball.y - (aiPaddle.y + aiPaddle.height/2)) * aiComputer;
 
-    if(pingPongBall.y + pingPongBall.radius > game.height || pingPongBall.y - pingPongBall.radius < 0) {
-        pingPongBall.velocityY = - pingPongBall.velocityY;
+    if(ball.y + ball.radius > game.height || ball.y - ball.radius < 0) {
+        ball.velocityY = - ball.velocityY;
     }
 
-    let player = (pingPongBall.x < game.width/2) ? user: Comment;
+    let player = (ball.x < game.width/2) ? user: aiComputer;
 
-    // if(collision(ball, player)) {
+    if(collision(ball, player)) {
 
-    // }
+    }
 }
 
 function pingPong() {
