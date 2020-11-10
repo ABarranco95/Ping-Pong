@@ -81,3 +81,48 @@ function render() {
 
 }
 ```
+# Update function
+We create a new function which will be used to store if statements and other code that will update our score, ball speed and other things inside.
+
+```JS 
+function update() {
+    pingPongBall.x += pingPongBall.velocityX;
+    pingPongBall.y += pingPongBall.velocityY;
+
+    // AI 
+
+    let aiComputerLevel = 0.1;
+
+    aiPaddle.y += (pingPongBall.y - (aiPaddle.y + aiPaddle.height/2)) * aiComputerLevel;
+
+    if(pingPongBall.y + pingPongBall.radius > game.height || pingPongBall.y - pingPongBall.radius < 0) {
+        pingPongBall.velocityY = - pingPongBall.velocityY;
+    }
+
+    let player = (pingPongBall.x < game.width/2) ? userPaddle: aiPaddle;
+
+    if(collision(pingPongBall, player)) {
+        
+        let collidePoint = pingPongBall.y - (player.y + player.height/2);
+
+        collidePoint = collidePoint/(player.height/2);
+
+        let angle = collidePoint * Math.PI/4;
+
+        let direction = (pingPongBall.x < game.width/2) ? 1 : -1;
+
+        pingPongBall.velocityX = direction * pingPongBall.speed * Math.cos(angle);
+        pingPongBall.velocityY = pingPongBall.speed * Math.sin(angle);
+
+        pingPongBall.speed += 0.2;
+    }
+
+    if(pingPongBall.x - pingPongBall.radius < 0) {
+        aiPaddle.score++;
+        resetBall();
+    } else if (pingPongBall.x + pingPongBall.radius > game.width) {
+        userPaddle.score++;
+        resetBall();
+    }
+}
+```
