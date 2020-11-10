@@ -13,7 +13,7 @@ The game in similar to table tennis but in a web arcade version. You will play a
 # Functions 
 
 Set up various functions right from the start to begin foundations of the game. 
-```
+```JS
 // Function to keep track of score.
 
 function gameScore(score, x, y, color) {
