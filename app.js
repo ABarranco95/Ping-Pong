@@ -3,8 +3,7 @@ const context = game.getContext('2d');
 
 const play = document.querySelector('.play')
 const reset = document.querySelector('.reset')
-console.log(reset)
-console.log(play);
+
 
 const pingPongBall = {
     x: game.width/2,
@@ -207,22 +206,22 @@ const gameLoop = setInterval(function() {
 
 
 function startGame() {
-    return gameLoop;
+  return gameLoop;
 }
 
+play.addEventListener('click', startGame);
 
 
 function resetGame() {
     context.clearRect(0, 0, game.width, game.height);
-    render();
     userPaddle.score = 0
     aiPaddle.score = 0
     userPaddle.y = game.height/2 - 100/2;
     aiPaddle.y = game.height/2 - 100/2;
     pingPongBall.x = game.width/2;
     pingPongBall.y = game.height/2;
-    startGame();
+    render();
+    // startGame();
 }
 
-play.addEventListener('click', startGame);
 reset.addEventListener('click', resetGame);
