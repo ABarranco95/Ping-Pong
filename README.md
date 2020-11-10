@@ -49,3 +49,35 @@ function createPaddle(x, y, w, h, color) {
     context.fillRect(x, y, w, h);
 }
 ```
+
+# Create game pieces visually on web
+
+```
+// Run the game on board
+
+function render() {
+    createBackground(0, 0, game.width, game.height, '#02BDFD');
+
+    createPaddle(divider.x, divider.y, divider.width, divider.height, divider.color)
+    
+    createPaddle(userPaddle.x, userPaddle.y, userPaddle.width, userPaddle.height, userPaddle.color)
+    
+    createPaddle(aiPaddle.x, aiPaddle.y, aiPaddle.width, aiPaddle.height, aiPaddle.color)
+    
+    createCircle(pingPongBall.x, pingPongBall.y, pingPongBall.radius, pingPongBall.color)
+
+    gameScore(userPaddle.score, game.width/4, game.height/5, '#fff')
+
+    gameScore(aiPaddle.score, game.width/1.35, game.height/5, '#fff')
+
+    if(userPaddle.score === 1) {
+        clearInterval(gameLoop);
+       return winningDisplay('Winner, Winner, Chicken Dinner!', game.width/90, 200, 'white')
+    
+    } else if (aiPaddle.score === 1) {
+        clearInterval(gameLoop);
+        return winningDisplay('No Chicken Dinner Tonight..', game.width/1.8, 200, 'white')
+    }
+
+}
+```
