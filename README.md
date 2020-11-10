@@ -52,7 +52,7 @@ function createPaddle(x, y, w, h, color) {
 
 # Create game pieces visually on web
 
-```
+```JS
 // Run the game on board
 
 function render() {
