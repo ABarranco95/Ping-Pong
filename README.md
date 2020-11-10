@@ -126,3 +126,20 @@ function update() {
     }
 }
 ```
+
+# Ball Reset
+
+We also cant forget to reset the ball in case we start on a bad foot. 
+
+```JS
+function resetBall() {
+    pingPongBall.x = game.width/2;
+    pingPongBall.y = game.height/2;
+
+    pingPongBall.speed = 5;
+    pingPongBall.velocityX = -pingPongBall.velocityX;
+    pingPongBall.velocityY = -pingPongBall.velocityY;
+}
+```
+
+For a more in depth look at code, look inside `app.js` file
