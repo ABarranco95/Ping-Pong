@@ -39,3 +39,8 @@ p {
     font-family: 'Amatic SC', cursive;
     font-size: 24px;
 }
+
+.author {
+    padding: 160px 0px 0px 0px;
+    font-size: 14px;
+}
