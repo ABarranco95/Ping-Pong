@@ -21,7 +21,7 @@ function gameScore(score, x, y, color) {
     context.font = '45px Amatic SC';
     context.fillText(score, x, y);
 }
-
+// Function that will display appropriate message
 function winningDisplay(message, x, y, color) {
     context.fillStyle = color;
     context.font = '40px Amatic SC';
@@ -179,18 +179,6 @@ function update() {
     } else if (pingPongBall.x + pingPongBall.radius > game.width) {
         userPaddle.score++;
         resetBall();
-    }
-
-
-    // Game winner/ End of game
-
-    if(userPaddle.score === 3) {
-        clearInterval(gameLoop);
-       return winningDisplay('Winner, Winner, Chicken Dinner!', game.width/2, 200, 'white')
-    
-    } else if (aiPaddle.score === 3) {
-        clearInterval(gameLoop);
-        return winningDisplay('Winner, Winner, Chicken Dinner!', game.width/2, 200, 'white')
     }
 }
 
