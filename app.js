@@ -133,143 +133,96 @@ function render() {
 }
 
 
+
+function update() {
+    pingPongBall.x += pingPongBall.velocityX;
+    pingPongBall.y += pingPongBall.velocityY;
+
+    // AI 
+
+    let aiComputerLevel = 0.1;
+
+    aiPaddle.y += (pingPongBall.y - (aiPaddle.y + aiPaddle.height/2)) * aiComputerLevel;
+
+    if(pingPongBall.y + pingPongBall.radius > game.height || pingPongBall.y - pingPongBall.radius < 0) {
+        pingPongBall.velocityY = - pingPongBall.velocityY;
+    }
+
+    let player = (pingPongBall.x < game.width/2) ? userPaddle: aiPaddle;
+
+    if(collision(pingPongBall, player)) {
+        
+        let collidePoint = pingPongBall.y - (player.y + player.height/2);
+
+        collidePoint = collidePoint/(player.height/2);
+
+        let angle = collidePoint * Math.PI/4;
+
+        let direction = (pingPongBall.x < game.width/2) ? 1 : -1;
+
+        pingPongBall.velocityX = direction * pingPongBall.speed * Math.cos(angle);
+        pingPongBall.velocityY = pingPongBall.speed * Math.sin(angle);
+
+        pingPongBall.speed += 0.2;
+    }
+
+    if(pingPongBall.x - pingPongBall.radius < 0) {
+        aiPaddle.score++;
+        resetBall();
+    } else if (pingPongBall.x + pingPongBall.radius > game.width) {
+        userPaddle.score++;
+        resetBall();
+    }
+
+
+    // Game winner/ End of game
+
+    if(userPaddle.score === 3) {
+        clearInterval(gameLoop);
+       return winningDisplay('Winner, Winner, Chicken Dinner!', game.width/2, 200, 'white')
+    
+    } else if (aiPaddle.score === 3) {
+        clearInterval(gameLoop);
+        return winningDisplay('Winner, Winner, Chicken Dinner!', game.width/2, 200, 'white')
+    }
+}
+
+// 60 frames per second
+
 // function to reset pingPongBall after player/ai scores.
 
 function resetBall() {
     pingPongBall.x = game.width/2;
     pingPongBall.y = game.height/2;
 
-    // pingPongBall.speed = 5;
+    pingPongBall.speed = 5;
     pingPongBall.velocityX = -pingPongBall.velocityX
 }
 
 
-
-// function update() {
-//     pingPongBall.x += pingPongBall.velocityX;
-//     pingPongBall.y += pingPongBall.velocityY;
-
-//     // AI 
-
-//     let aiComputerLevel = 0.1;
-
-//     aiPaddle.y += (pingPongBall.y - (aiPaddle.y + aiPaddle.height/2)) * aiComputerLevel;
-
-//     if(pingPongBall.y + pingPongBall.radius > game.height || pingPongBall.y - pingPongBall.radius < 0) {
-//         pingPongBall.velocityY = - pingPongBall.velocityY;
-//     }
-
-//     let player = (pingPongBall.x < game.width/2) ? userPaddle: aiPaddle;
-
-//     if(collision(pingPongBall, player)) {
-        
-//         let collidePoint = pingPongBall.y - (player.y + player.height/2);
-
-//         collidePoint = collidePoint/(player.height/2);
-
-//         let angle = collidePoint * Math.PI/4;
-
-//         let direction = (pingPongBall.x < game.width/2) ? 1 : -1;
-
-//         pingPongBall.velocityX = direction * pingPongBall.speed * Math.cos(angle);
-//         pingPongBall.velocityY = pingPongBall.speed * Math.sin(angle);
-
-//         pingPongBall.speed += 0.5;
-//     }
-
-//     if(pingPongBall.x - pingPongBall.radius < 0) {
-//         aiPaddle.score++;
-//         resetBall();
-//     } else if (pingPongBall.x + pingPongBall.radius > game.width) {
-//         userPaddle.score++;
-//         resetBall();
-//     }
+const gameLoop = setInterval(function() {
+    update();
+    render();
+}, 1000/60);
 
 
-//     // Game winner/ End of game
-
-//     if(userPaddle.score === 1) {
-//         clearInterval(gameLoop);
-//        return winningDisplay('Winner, Winner, Chicken Dinner!', game.width/2, 200, 'white')
-    
-//     } else if (aiPaddle.score === 1) {
-//         clearInterval(gameLoop);
-//         return winningDisplay('Winner, Winner, Chicken Dinner!', game.width/2, 200, 'white')
-//     }
-// }
-
-// 60 frames per second
-
-
-play.addEventListener('click', startGame);
 function startGame() {
-    function update() {
-        pingPongBall.x += pingPongBall.velocityX;
-        pingPongBall.y += pingPongBall.velocityY;
-        
-        // AI 
-        
-        let aiComputerLevel = 0.1;
-        
-        aiPaddle.y += (pingPongBall.y - (aiPaddle.y + aiPaddle.height/2)) * aiComputerLevel;
-        
-        if(pingPongBall.y + pingPongBall.radius > game.height || pingPongBall.y - pingPongBall.radius < 0) {
-            pingPongBall.velocityY = - pingPongBall.velocityY;
-        }
-        
-        let player = (pingPongBall.x < game.width/2) ? userPaddle: aiPaddle;
-        
-        if(collision(pingPongBall, player)) {
-            
-            let collidePoint = pingPongBall.y - (player.y + player.height/2);
-            
-            collidePoint = collidePoint/(player.height/2);
-            
-            let angle = collidePoint * Math.PI/4;
-            
-            let direction = (pingPongBall.x < game.width/2) ? 1 : -1;
-            
-            pingPongBall.velocityX = direction * pingPongBall.speed * Math.cos(angle);
-            pingPongBall.velocityY = pingPongBall.speed * Math.sin(angle);
-            
-            pingPongBall.speed += 0.5;
-        }
-        
-        if(pingPongBall.x - pingPongBall.radius < 0) {
-            aiPaddle.score++;
-            resetBall();
-        } else if (pingPongBall.x + pingPongBall.radius > game.width) {
-            userPaddle.score++;
-            resetBall();
-        }
-        
-        
-        // Game winner/ End of game
-        
-        if(userPaddle.score === 1) {
-            clearInterval(gameLoop);
-            return winningDisplay('Winner, Winner, Chicken Dinner!', game.width/2, 200, 'white')
-            
-        } else if (aiPaddle.score === 1) {
-            clearInterval(gameLoop);
-            return winningDisplay('Winner, Winner, Chicken Dinner!', game.width/2, 200, 'white')
-        }
-    }
-            const gameLoop = setInterval(function() {
-                update();
-                render();
-            }, 1000/60);
+    return gameLoop;
 }
+
 
 
 function resetGame() {
+    context.clearRect(0, 0, game.width, game.height);
     render();
     userPaddle.score = 0
     aiPaddle.score = 0
-    userPaddle.y = game.height/2 - 100/2,
-    aiPaddle.y = game.height/2 - 100/2,
-    x = game.width/2
-    y = game.height/2
+    userPaddle.y = game.height/2 - 100/2;
+    aiPaddle.y = game.height/2 - 100/2;
+    pingPongBall.x = game.width/2;
+    pingPongBall.y = game.height/2;
+    startGame();
 }
 
+play.addEventListener('click', startGame);
 reset.addEventListener('click', resetGame);
