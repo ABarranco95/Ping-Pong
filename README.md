@@ -1,10 +1,10 @@
 # Ping-Pong
 
-Pong is a table tennis-themed arcade video game, featuring simple two-dimensional graphics, manufactured by Atari and originally released in 1972. It was one of the earliest arcade video games
+Pong is a table tennis-themed arcade video game, featuring simple two-dimensional graphics, manufactured by Atari and originally released in 1972. It was one of the earliest arcade video games. It's a simple yet very entertaining game. 
 
 # Technologies and Languages
 
-The main portion of the game is built mainly around Javascript
+The main portion of the game is built mainly around `Javascript`, some `HTML` and `CSS`
 
 # Game Objective
 
