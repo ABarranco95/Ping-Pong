@@ -70,7 +70,6 @@ const aiPaddle = {
 }
 
 
-
 // Add the divider
 
 const divider = {
@@ -128,6 +127,15 @@ function render() {
     gameScore(userPaddle.score, game.width/4, game.height/5, '#fff')
 
     gameScore(aiPaddle.score, game.width/1.35, game.height/5, '#fff')
+
+    if(userPaddle.score === 1) {
+        clearInterval(gameLoop);
+       return winningDisplay('Winner, Winner, Chicken Dinner!', game.width/90, 200, 'white')
+    
+    } else if (aiPaddle.score === 1) {
+        clearInterval(gameLoop);
+        return winningDisplay('No Chicken Dinner Tonight..', game.width/1.8, 200, 'white')
+    }
 
 }
 
@@ -195,7 +203,8 @@ function resetBall() {
     pingPongBall.y = game.height/2;
 
     pingPongBall.speed = 5;
-    pingPongBall.velocityX = -pingPongBall.velocityX
+    pingPongBall.velocityX = -pingPongBall.velocityX;
+    pingPongBall.velocityY = -pingPongBall.velocityY;
 }
 
 
