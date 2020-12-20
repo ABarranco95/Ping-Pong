@@ -1,7 +1,7 @@
 const game = document.querySelector('#pong');
 const context = game.getContext('2d');
 
-const play = document.querySelector('.play')
+// const play = document.querySelector('.play')
 const reset = document.querySelector('.reset')
 
 
@@ -114,7 +114,7 @@ function collision(pingPongBall, player) {
 // Run the game on board
 
 function render() {
-    createBackground(0, 0, game.width, game.height, '#02BDFD');
+    createBackground(0, 0, game.width, game.height, 'rgb(11 59 87)');
 
     createPaddle(divider.x, divider.y, divider.width, divider.height, divider.color)
     
@@ -128,11 +128,11 @@ function render() {
 
     gameScore(aiPaddle.score, game.width/1.35, game.height/5, '#fff')
 
-    if(userPaddle.score === 1) {
+    if(userPaddle.score === 3) {
         clearInterval(gameLoop);
        return winningDisplay('Winner, Winner, Chicken Dinner!', game.width/90, 200, 'white')
     
-    } else if (aiPaddle.score === 1) {
+    } else if (aiPaddle.score === 3) {
         clearInterval(gameLoop);
         return winningDisplay('No Chicken Dinner Tonight..', game.width/1.8, 200, 'white')
     }
@@ -147,7 +147,7 @@ function update() {
 
     // AI 
 
-    let aiComputerLevel = 0.1;
+    let aiComputerLevel = 0.7;
 
     aiPaddle.y += (pingPongBall.y - (aiPaddle.y + aiPaddle.height/2)) * aiComputerLevel;
 
@@ -170,7 +170,7 @@ function update() {
         pingPongBall.velocityX = direction * pingPongBall.speed * Math.cos(angle);
         pingPongBall.velocityY = pingPongBall.speed * Math.sin(angle);
 
-        pingPongBall.speed += 0.2;
+        pingPongBall.speed += 0.6;
     }
 
     if(pingPongBall.x - pingPongBall.radius < 0) {
@@ -189,10 +189,10 @@ function update() {
 function resetBall() {
     pingPongBall.x = game.width/2;
     pingPongBall.y = game.height/2;
-
-    pingPongBall.speed = 5;
     pingPongBall.velocityX = -pingPongBall.velocityX;
     pingPongBall.velocityY = -pingPongBall.velocityY;
+
+    pingPongBall.speed = 5;
 }
 
 
@@ -208,6 +208,9 @@ function startGame() {
 
 play.addEventListener('click', startGame);
 
+
+
+// Function to Reset the game
 
 function resetGame() {
     context.clearRect(0, 0, game.width, game.height);
